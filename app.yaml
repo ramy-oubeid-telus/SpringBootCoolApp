@@ -5,3 +5,5 @@ service: default
 handlers:
   - url: /.*
     script: this field is required, but ignored
+server:
+  port:4000
