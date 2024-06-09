@@ -1,4 +1,4 @@
-package com.luv2code.springboot.demo.edi.common;
+package com.healthai.springboot.demo.edi.common;
 
 import org.springframework.stereotype.Component;
 

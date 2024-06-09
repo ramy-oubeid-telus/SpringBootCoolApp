@@ -1,6 +1,6 @@
-package com.luv2code.springboot.demo.edi.controller;
+package com.healthai.springboot.demo.edi.controller;
 
-import com.luv2code.springboot.demo.edi.common.Coach;
+import com.healthai.springboot.demo.edi.common.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
