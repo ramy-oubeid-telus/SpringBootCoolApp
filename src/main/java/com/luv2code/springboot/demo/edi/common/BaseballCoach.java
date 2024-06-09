@@ -1,5 +1,4 @@
-package com.luv2code.springboot.demo.mycoolapp.common;
-import org.springframework.stereotype.Component;
+package com.luv2code.springboot.demo.edi.common;
 
 
 public class BaseballCoach implements Coach{

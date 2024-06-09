@@ -1,6 +1,6 @@
-package com.luv2code.springboot.demo.mycoolapp.Controller;
+package com.luv2code.springboot.demo.edi.Controller;
 
-import com.luv2code.springboot.demo.mycoolapp.common.Coach;
+import com.luv2code.springboot.demo.edi.common.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
