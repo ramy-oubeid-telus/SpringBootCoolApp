@@ -1,4 +1,4 @@
-package com.luv2code.springboot.demo.edi.Controller;
+package com.luv2code.springboot.demo.edi.controller;
 
 import com.luv2code.springboot.demo.edi.common.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
