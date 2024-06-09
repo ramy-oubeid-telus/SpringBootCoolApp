@@ -10,16 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class FunRestController {
 
     Coach thecoach;
+    Coach anotherCoach;
 
     @Autowired
-    public FunRestController(@Qualifier("soccerCoach") Coach thecoach) {
+    public FunRestController(
+            @Qualifier("soccerCoach") Coach thecoach,
+            @Qualifier("123") Coach anotherCoach ) {
         this.thecoach = thecoach;
+        this.anotherCoach = anotherCoach;
     }
 
     // expose "/" that return "Hello World"
 
-    @GetMapping("/")
+    @GetMapping("/getCoach")
     public String DisplayTheCouch() {
-        return thecoach.getDailyWorkout();
+        return anotherCoach.getDailyWorkout();
+    }
+
+    @GetMapping("/getInformation")
+    public String DisplayTheInformation() {
+
+        String s = "Two soccerCoach are identical?" + (anotherCoach==thecoach);
+        return s;
     }
 }
