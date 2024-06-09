@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['clean', 'install']
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['spring-boot:run']
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: '600s'
+
