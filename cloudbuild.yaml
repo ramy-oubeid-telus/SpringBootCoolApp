@@ -5,7 +5,8 @@ steps:
     args: ['spring-boot:run']
 
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: gs://mycoolapp-logs-bucket
+  serviceAccount: true-velocity-424421-a9@appspot.gserviceaccount.com
 
 timeout: '600s'
 
