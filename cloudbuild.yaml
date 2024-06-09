@@ -6,7 +6,6 @@ steps:
 
 options:
   logging: NONE
-  serviceAccount: true-velocity-424421-a9@appspot.gserviceaccount.com
 
 timeout: '600s'
 
