@@ -8,6 +8,7 @@ class DentalEDIApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
