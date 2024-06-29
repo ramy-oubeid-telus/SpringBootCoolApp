@@ -11,15 +11,18 @@ package com.healthai.springboot.demo.edi.rest;
 import com.healthai.springboot.demo.edi.dao.StudentDAO;
 import com.healthai.springboot.demo.edi.dao.StudentDAOImpl;
 import com.healthai.springboot.demo.edi.entity.Student;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,13 +30,17 @@ import java.util.List;
 public class StudentRestController {
 
     private static final Logger log = LoggerFactory.getLogger(StudentRestController.class);
-    public StudentDAO studentDAO;
+    private StudentDAO studentDAO;
+    private List<Student> theStudents;
+
 
     @Autowired
     public StudentRestController(StudentDAO studentDAO) {
         this.studentDAO = studentDAO;
 
     }
+
+
 
     //define endpoint for "/students" - return a list of students
     @GetMapping("/getStudents")
@@ -52,10 +59,56 @@ public class StudentRestController {
         log.info("Deleting student with id: " + id);
 
         int count = studentDAO.delete(id);
+        //If return true then log.info("Student deleted successfully") else log.info("Student not found")
 
-        return count > 0;
+        return (count > 0);
+
+
+
 
     }
+
+    // define @PostConstruct to load the student data ... only once!
+
+    @PostConstruct
+    public void loadData() {
+
+        theStudents = new ArrayList<>();
+
+        theStudents.add(new Student("Poornima", "Patel","poornima.patel@gmail.com"));
+        theStudents.add(new Student("Mario", "Rossi", "mario.rossi@gmail.com"));
+        theStudents.add(new Student("Mary", "Smith", "mary.smith@gmail.com"));
+        theStudents.add(new Student("Tom", "Tatters", "tom.tatters@gmail.com"));
+    }
+    @GetMapping("/student/{studentId}")
+    public Student getStudent(@PathVariable int studentId) {
+        log.info("Retrieving student with id: " + studentId);
+        if (studentId >= theStudents.size() || studentId < 0){
+            log.error("Student id not found - " + studentId);
+            throw new StudentNotFoundException("Student id not found - " + studentId);
+        }
+
+        return theStudents.get(studentId);
+    }
+
+    //Add an exception handler using @ExceptionHandler
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
+
+        // create a StudentErrorResponse
+
+        StudentErrorResponse error = new StudentErrorResponse();
+
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage(exc.getMessage());
+        error.setTimestamp(Instant.now());
+
+        // return ResponseEntity
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+
 
 
 }
